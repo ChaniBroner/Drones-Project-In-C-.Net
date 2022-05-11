@@ -1,0 +1,89 @@
+﻿<UserControl x:Class="PL.View.EditStationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             
+             xmlns:local="clr-namespace:PL.View" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+
+        <Style TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignTextBlock}">
+            <Setter Property="Margin" Value="0,15" />
+            <Setter Property="Width" Value="200" />
+            <Setter Property="materialDesign:TextFieldAssist.HasClearButton" Value="True" />
+        </Style>
+
+        <!--<Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignComboBox}">
+            <Setter Property="Width" Value="200" />
+            <Setter Property="Margin" Value="0,15" />
+        </Style>-->
+        
+    </UserControl.Resources>
+    <StackPanel>
+        <TextBox Text="{Binding Station.Id}" 
+                 Style="{StaticResource Edit}"
+                 materialDesign:HintAssist.Hint="Id" 
+                 IsEnabled="False"/>
+
+        <TextBox Text="{Binding Station.Name, 
+                                ValidatesOnDataErrors=true,
+                                NotifyOnValidationError=true,
+                                UpdateSourceTrigger=PropertyChanged}" 
+                 Style="{StaticResource Edit}"
+                 materialDesign:HintAssist.Hint="Name" 
+                 materialDesign:TextFieldAssist.HasClearButton="True"/>
+
+        <TextBox Text="{Binding Station.NumPositions,
+                                ValidatesOnDataErrors=true,
+                                NotifyOnValidationError=true,
+                                UpdateSourceTrigger=PropertyChanged}"
+                 Style="{StaticResource Edit}"
+                 materialDesign:HintAssist.Hint="Positions"
+                 materialDesign:TextFieldAssist.HasClearButton="True" />
+
+        <!--<TextBox Text="{Binding Station.Location.Longitude}"
+                 materialDesign:HintAssist.Hint="Longitude"
+                 IsEnabled="False"/>
+
+        <TextBox Text="{Binding Station.Location.Latitude}" 
+                 materialDesign:HintAssist.Hint="Latitude"
+                 IsEnabled="False"/>-->
+        <TextBox Text="{Binding Station.Location, Mode=OneWay}"
+                 Style="{StaticResource Edit}"
+                 materialDesign:HintAssist.Hint="Location"
+                 IsEnabled="False"/>
+
+        <ListView x:Name="DronesInStationListView"  ItemsSource="{Binding Station.ListChargingDrone}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction 
+                        Command="{Binding ShowDroneCommand}"
+                        CommandParameter="{Binding ElementName=DronesInStationListView, Path=SelectedItem}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ListView>
+
+        <Button Style="{StaticResource MaterialDesignFlatButton}"
+                HorizontalAlignment="Center"
+                Content="Update"
+                Command="{Binding UpdateStationCommand}" CommandParameter="{Binding Station}" >
+        </Button>
+
+        <Button Content="Close" 
+                Command="{Binding CloseWindowCommand }" 
+                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}"
+                Style="{StaticResource MaterialDesignFlatButton}">
+        </Button>
+
+        <Button Style="{StaticResource MaterialDesignFlatButton}"
+                HorizontalAlignment="Center"
+                Content="Delete"
+                Command="{Binding DeleteStationCommand}" 
+                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" >
+        </Button>
+
+    </StackPanel>
+</UserControl>

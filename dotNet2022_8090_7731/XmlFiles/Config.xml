@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfPowerConsumption>
+  <Available>0.0001</Available>
+  <LightWeight>0.0002</LightWeight>
+  <MediumWeight>0.0003</MediumWeight>
+  <HeavyWeight>0.0004</HeavyWeight>
+  <ChargingRate>3</ChargingRate>
+  <IndexParcel>1000</IndexParcel>
+</ArrayOfPowerConsumption>

@@ -1,0 +1,60 @@
+﻿<Window x:Class="PL.View.CustomerListView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="CustomerListView" Height="450" Width="800">
+
+    <ScrollViewer>
+        <StackPanel Orientation="Vertical" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListView x:Name="CustomerList" ItemsSource="{Binding CustomerList}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn
+                            DisplayMemberBinding="{Binding Id}"
+                            Header="Id" />
+                        <GridViewColumn
+                            DisplayMemberBinding="{Binding Name}"
+                            Header="Name" />
+                        <GridViewColumn
+                            DisplayMemberBinding="{Binding Phone}"
+                            Header="Phone" />
+                        <GridViewColumn
+                            DisplayMemberBinding="{Binding SentSupplied}"
+                            Header="SentSupplied" />
+                        <GridViewColumn
+                            DisplayMemberBinding="{Binding SentNotSupplied}"
+                            Header="SentNotSupplied" />
+                        <GridViewColumn
+                            DisplayMemberBinding="{Binding Got}"
+                            Header="Got" />
+                        <GridViewColumn
+                            DisplayMemberBinding="{Binding InWayToCustomer}"
+                            Header="InWayToCustomer" />
+                    </GridView>
+                </ListView.View>
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction 
+                            Command="{Binding MouseDoubleCommand}"
+                            CommandParameter="{Binding ElementName=CustomerList, Path=SelectedItem}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ListView>
+
+            <Button Content="AddCustomer:" 
+                    Command="{Binding AddCustomerCommand}">
+            </Button>
+
+            <Button Content="Close:" 
+                    Command="{Binding CloseWindowCommand }" 
+                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" >
+            </Button>
+            
+        </StackPanel>
+    </ScrollViewer>
+</Window>
